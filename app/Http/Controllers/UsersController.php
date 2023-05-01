@@ -98,11 +98,10 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $userHouse = $user->house;
-        $userFriends = $user->friends()->paginate(3);
-        $files = $user->files()->paginate(3);
+        $files = $user->files()->get();
         $houses = House::all();
-        $friends = Friend::all();
-        return view('show', compact(['user', 'userHouse', 'userFriends', 'files', 'houses', 'friends']));
+        $friends = $user->friends()->get() ;
+        return view('show', compact(['user', 'userHouse', 'files', 'houses', 'friends']));
     }
 
     /**
@@ -124,11 +123,13 @@ class UsersController extends Controller
      */
     public function edit($id): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
-        $user = User::find($id);
-        $method = 'PUT';
+        $user = User::findOrFail($id);
+        $userHouse = $user->house;
+        $userFriends = $user->friends()->get();
+        $files = $user->files()->get();
         $houses = House::all();
         $friends = Friend::all();
-        return view('form', compact(['user', 'method', 'houses', 'friends']));
+        return view('update', compact(['user', 'userHouse', 'userFriends', 'files', 'houses', 'friends']));
     }
 
     /**
@@ -139,7 +140,6 @@ class UsersController extends Controller
     public function update(StoreUpdateUserRequest $request, $id): Application|Redirector|RedirectResponseAlias|\Illuminate\Contracts\Foundation\Application
     {
         $data = $request->validated();
-
         $user = User::findOrFail($id);
         $user->update($data);
 
@@ -163,13 +163,6 @@ class UsersController extends Controller
         return response()->json(['message' => 'deleted successfully']);
     }
 
-    public function deleteFriend($user_id, $friend_id): RedirectResponseAlias
-    {
-        $user = User::find($user_id);
-        $user->friends()->detach($friend_id);
-        return redirect()->back();
-    }
-
     /**
      * @param mixed $data
      * @param $user
@@ -179,7 +172,7 @@ class UsersController extends Controller
     public function handleImageExistence(mixed $data, $user, StoreUpdateUserRequest $request): RedirectResponseAlias|\Illuminate\Contracts\Foundation\Application|Redirector|Application
     {
         if (isset($data['friends']))
-            $user->friends()->attach($data['friends']);
+            $user->friends()->sync($data['friends']);
 
         if ($request->hasFile('image') != null) {
             $file = new File($request->file('image'));
@@ -191,6 +184,6 @@ class UsersController extends Controller
             ]);
         }
 
-        return redirect()->route('users.show', $user->id);
+        return redirect()->route('users.show' , $user->id);
     }
 }

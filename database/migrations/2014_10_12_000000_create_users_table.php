@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->time('time')->default(now()->format('H:i'));
             $table->json('status')->default(json_encode(['studying']));
             $table->enum('gender', ['male', 'female'])->default('male');
-            $table->text('text')->default('lorem') ;
+            $table->longText('text')->default('lorem') ;
             $table->rememberToken();
             $table->timestamps();
         });

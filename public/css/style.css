@@ -1220,6 +1220,11 @@ h6 {
 
 .image-container {
     position: relative;
+    display: inline-block;
+    margin: 5px;
+    width: 200px; /* adjust the width as needed */
+    height: 200px; /* adjust the height as needed */
+    overflow: hidden;
 }
 
 .remove-btn {
@@ -1234,4 +1239,22 @@ h6 {
 
 .image-container:hover .remove-btn {
     display: block;
+}
+
+.grid-img-item {
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+    border-radius: 75%;
+}
+
+.upload-file-button-label {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-file-button-icon{
+    font-size: 50px;
 }

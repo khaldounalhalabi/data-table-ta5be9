@@ -22,7 +22,6 @@ class StoreUpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-//        dd($this->time) ;
         return [
             'first_name' => 'string|min:3|max:255',
             'last_name' => 'string|min:3|max:255',
@@ -38,7 +37,7 @@ class StoreUpdateUserRequest extends FormRequest
             'time' => 'date_format:H:i',
             'status' => 'required',
             'gender' => 'required',
-            'text' => 'nullable',
+            'text' => 'required',
         ];
     }
 }

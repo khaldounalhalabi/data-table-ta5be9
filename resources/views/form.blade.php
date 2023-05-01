@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body pt-3">
-                            <form action="{{route('users.store')}}" method="POST"
+                            <form id="form" action="{{route('users.store')}}" method="POST"
                                   enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
@@ -20,7 +20,7 @@
                                                class="form-control @error('first_name') is-invalid @enderror"
                                                id="first_name"
                                                name="first_name"
-                                               value="{{ old('first_name') ?? $user->first_name ?? null }}"
+                                               value="{{ old('first_name') ?? null }}"
                                                required>
                                         @error('first_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -32,7 +32,7 @@
                                                class="form-control @error('last_name') is-invalid @enderror"
                                                id="last_name"
                                                name="last_name"
-                                               value="{{ old('last_name') ?? $user->last_name ?? null }}"
+                                               value="{{ old('last_name') ?? null }}"
                                                required>
                                         @error('last_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -44,7 +44,7 @@
                                                class="form-control @error('email') is-invalid @enderror"
                                                id="email"
                                                name="email"
-                                               value="{{ old('email') ?? $user->email ?? null }}" required>
+                                               value="{{ old('email') ?? null }}" required>
                                         @error('email')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -64,18 +64,16 @@
                                         <label for="house_id">House</label>
                                         <select class="form-select @error('house_id') is-invalid @enderror"
                                                 id="house_id"
-                                                data-placeholder="@if(!isset($method)){{$userHouse->address}}Chose A House @endif"
-                                                name="house_id">
-                                            @if(isset($method))
-                                                @foreach($houses as $house)
-                                                    <option
-                                                        value="{{$house->id}}">{{$house->address}}</option>
-                                                @endforeach
-                                            @endif
+                                                data-placeholder="Chose A House"
+                                                name="house_id" required>
+                                            @foreach($houses as $house)
+                                                <option
+                                                    value="{{$house->id}}">{{$house->address}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-6 p-2">
-                                        <label for="number">Age</label>
+                                        <label for="age">Age</label>
                                         <input type="number"
                                                class="form-control @error('age') is-invalid @enderror"
                                                id="age"
@@ -107,8 +105,8 @@
                                                required>
                                     </div>
                                     <div class="col-md-6 p-2">
-                                        <label for="multiple-select-clear-field">Friends</label>
-                                        <select class="form-select" id="multiple-select-clear-field"
+                                        <label for="friends-selector">Friends</label>
+                                        <select class="form-select" id="friends-selector"
                                                 data-placeholder="Choose anything" name="friends[]"
                                                 multiple>
                                             @foreach($friends as $friend)
@@ -120,8 +118,8 @@
                                     <div class="col-md-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="studying"
-                                                   id="flexCheckDefault" name="status[]">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                                   id="status[]" name="status[]">
+                                            <label class="form-check-label" for="status[]">
                                                 Studying
                                             </label>
                                         </div>
@@ -155,13 +153,21 @@
                                                VALUE="IMAGE">
                                     </div>
                                     <div class="col-md-12 p-2">
-                                        <label for="summernote">Text</label>
-                                        <textarea id="summernote" class="@error('text')is-invalid @enderror"
-                                                  name="text" rows="6"></textarea>
+                                        <label for="text-editor">Text</label>
+                                        <textarea id="text-editor" class="@error('text')is-invalid @enderror"
+                                                  name="text" required></textarea>
                                     </div>
+                                    @if($errors->has('text'))
+                                        <ul class="alert alert-danger list-unstyled">
+                                            <li>
+                                                {{ $errors->first('text') }}
+                                            </li>
+                                        </ul>
+                                    @endif
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Submit
+                                    <button id="submit-btn" type="submit" class="btn btn-primary btn-lg btn-block">
+                                        Submit
                                     </button>
                                 </div>
                             </form>
@@ -172,20 +178,10 @@
         </section>
     </main>
     <script type="module">
-        $('#house_id').select2({
-            theme: "bootstrap-5",
-            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-            placeholder: $(this).data('placeholder'),
-        });
-        $('#multiple-select-clear-field').select2({
-            theme: "bootstrap-5",
-            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-            placeholder: $(this).data('placeholder'),
-            closeOnSelect: false,
-            allowClear: true,
-        });
         $(document).ready(function () {
-            $('#summernote').summernote();
+            initSelect2('#house_id');
+            initMultipleSelect2('#friends-selector');
+            initTrunbowyg("#text-editor");
         });
     </script>
 @endsection

@@ -20,4 +20,3 @@ Route::get('/', function () {
 Route::get('users/data', [UsersController::class, 'data'])->name('user.data');
 Route::resource('/users',UsersController::class);
 Route::delete('/users/image/{id}/delete' , [UsersController::class , 'deleteImage'])->name('user.image.delete') ;
-Route::delete('/users/{user_id}/friends/{friend_id}/remove' , [UsersController::class , 'deleteFriend'])->name('user.remove.friend') ;

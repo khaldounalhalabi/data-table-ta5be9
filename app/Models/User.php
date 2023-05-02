@@ -20,7 +20,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $guarded = ['id'] ;
+    protected $guarded = ['id'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -38,6 +38,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'date_time' => 'datetime',
     ];
 
     /**
@@ -45,7 +46,7 @@ class User extends Authenticatable
      */
     public function books(): HasMany
     {
-        return $this->hasMany(Book::class) ;
+        return $this->hasMany(Book::class);
     }
 
     /**
@@ -53,7 +54,7 @@ class User extends Authenticatable
      */
     public function house(): BelongsTo
     {
-        return $this->belongsTo(House::class) ;
+        return $this->belongsTo(House::class);
     }
 
     /**
@@ -61,7 +62,7 @@ class User extends Authenticatable
      */
     public function friends(): BelongsToMany
     {
-        return $this->belongsToMany(Friend::class , 'user_friends') ;
+        return $this->belongsToMany(Friend::class, 'user_friends');
     }
 
     /**
@@ -69,6 +70,6 @@ class User extends Authenticatable
      */
     public function files(): HasMany
     {
-        return $this->hasMany(File::class) ;
+        return $this->hasMany(File::class);
     }
 }

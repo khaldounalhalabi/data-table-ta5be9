@@ -36,7 +36,18 @@
 <script type="module">
     $(document).ready(function () {
         markRequiredFields();
+        initPluginsByClass();
 
+        let elements = document.querySelectorAll('.gallery');
+        if (elements.length > 0) {
+            handleImageDeleteButton(".remove-image-btn");
+            handleAddImageButton(
+                "#imageUpload",
+                '#imagePreview',
+                '#imageThumb',
+                '#remove-button-for-temp',
+            );
+        }
     });
     disableSubmitUntilFillRequiredFields();
 </script>

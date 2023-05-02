@@ -96,3 +96,4 @@ function handleAddImageButton(id, imagePreviewId, imageThumbId, removeButtonId) 
         }
     );
 }
+

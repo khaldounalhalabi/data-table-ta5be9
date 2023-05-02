@@ -4,11 +4,13 @@
         <section class="section profile">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-header card-title">Manage Users</div>
-                    <a href="{{route('users.create')}}" class="btn btn-primary float-end">
-                        <i class="bi bi-file-earmark-plus"></i>
-                    </a>
-                    <table class="table table-striped table-bordered" style="width:100%;margin: -2%;" id="table">
+
+                    <div class="card-header card-title">Manage Users
+                        <a href="{{route('users.create')}}" class="btn btn-primary float-end">
+                            <i class="bi bi-file-earmark-plus"></i>
+                        </a>
+                    </div>
+                    <table class="table table-striped table-bordered pt-2" style="width:100%;margin: -2%;" id="table">
                         <thead>
                         <tr>
                             <th>ID</th>

@@ -41,15 +41,14 @@ function initBaguetteBox(className) {
 
 
 function initPluginsByClass() {
-    let elements = document.querySelectorAll('.select-2, .multiple-select-2, .Trunbowyg-text-editor');
+    let elements = document.querySelectorAll('.select-2, .multiple-select-2, .Trunbowyg-text-editor, .gallery');
 
     let initSelect2State = true;
     let initMultipleSelect2State = true;
     let initTrunbowygState = true;
-    let initBaguetteBoxState = true ;
+    let initBaguetteBoxState = true;
 
     for (let i = 0; i < elements.length; i++) {
-
         if (!initMultipleSelect2State && !initSelect2State && !initTrunbowygState && !initBaguetteBoxState) {
             break;
         }
@@ -69,9 +68,9 @@ function initPluginsByClass() {
             initTrunbowygState = false;
         }
 
-        if (elements[i].classList.contains('.gallery') && initBaguetteBoxState){
+        if (elements[i].classList.contains('gallery') && initBaguetteBoxState) {
             initBaguetteBox('.gallery');
-            initBaguetteBoxState = false ;
+            initBaguetteBoxState = false;
         }
     }
 }

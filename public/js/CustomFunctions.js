@@ -71,14 +71,15 @@ function handleImageDeleteButton(buttonClass) {
  */
 function handleAddImageButton(id, imagePreviewId, imageThumbId, removeButtonId) {
     let imageUpload = $(id);
+    let imagePreview = $(imagePreviewId);
+    let imageThumb = $(imageThumbId);
+    let removeButtonForTemp = $(removeButtonId);
+
     imageUpload.on('change', function (e) {
             let file = e.target.files[0];
             if (file) {
                 let reader = new FileReader();
                 reader.onload = function (e) {
-                    let imagePreview = $(imagePreviewId);
-                    let imageThumb = $(imageThumbId);
-                    let removeButtonForTemp = $(removeButtonId);
                     imagePreview.attr('src', e.target.result);
                     imagePreview.show();
                     imageThumb.attr('href', e.target.result);
@@ -87,7 +88,7 @@ function handleAddImageButton(id, imagePreviewId, imageThumbId, removeButtonId) 
                     removeButtonForTemp.on('click', function () {
                         e.preventDefault();
                         let $this = $(this);
-                        $this.parent().remove();
+                        $this.parent().attr('hidden', true);
                         imageUpload.val('');
                     });
                 }
@@ -97,3 +98,21 @@ function handleAddImageButton(id, imagePreviewId, imageThumbId, removeButtonId) 
     );
 }
 
+function handleImageGalleryExistence() {
+    let gallery = $('.gallery');
+
+    if (gallery !== 'undefined') {
+        handleImageDeleteButton(".remove-image-btn");
+
+        let addButton = gallery.children().last().children().last();
+
+        if (addButton !== 'undefined' && addButton.attr('id') === 'imageUpload') {
+            handleAddImageButton(
+                "#imageUpload",
+                '#imagePreview',
+                '#imageThumb',
+                '#remove-button-for-temp',
+            );
+        }
+    }
+}

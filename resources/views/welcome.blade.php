@@ -4,7 +4,6 @@
         <section class="section profile">
             <div class="card">
                 <div class="card-body">
-
                     <div class="card-header card-title">Manage Users
                         <a href="{{route('users.create')}}" class="btn btn-primary float-end">
                             <i class="bi bi-file-earmark-plus"></i>

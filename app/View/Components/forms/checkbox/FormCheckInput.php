@@ -15,7 +15,7 @@ class FormCheckInput extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($label, $name,$checked)
+    public function __construct($label, $name,$checked = null)
     {
         $this->label = $label;
         $this->name = $name;

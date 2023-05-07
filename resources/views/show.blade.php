@@ -1,4 +1,4 @@
-<x-show.showlayout title="{{$user->first_name .' '.$user->last_name}} Details">
+<x-show.showlayout title="{{$user->first_name .' '.$user->last_name}} Details" editRoute="{{route('users.edit' , $user->id)}}">
 
     <x-show.smalltextfield :value="$user->first_name"
                            label="First Name"></x-show.smalltextfield>

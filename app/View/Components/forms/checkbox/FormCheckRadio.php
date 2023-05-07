@@ -15,7 +15,7 @@ class FormCheckRadio extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($name, $value, $checked)
+    public function __construct($name, $value, $checked = null)
     {
         $this->value = $value;
         $this->name = $name;

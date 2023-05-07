@@ -14,7 +14,7 @@ class TextEditor extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($label, $value)
+    public function __construct($label, $value = null)
     {
         $this->label = $label;
         $this->value = $value;
